@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>桜の下で君と</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== タイトル画面 ===== -->
+<div id="titleScreen">
+  <div id="titleContainer">
+    <h1>桜の下で君と</h1>
+    <button id="startButton">▶ はじめから</button>
+    <button id="continueButton">▶ つづきから</button>
+  </div>
+</div>
+
+<!-- ===== 名前入力画面 ===== -->
+<div id="nameScreen" class="hidden">
+  <div id="nameContainer">
+    <h2>あなたの名前を教えてください</h2>
+    <input type="text" id="playerNameInput">
+    <button id="nameConfirmButton">決定</button>
+  </div>
+</div>
+
+<!-- ===== ゲーム画面 ===== -->
+<div id="game" class="hidden">
+  <img id="char" src="img/heroine.png" alt="葵">
+  <div id="textBox">
+    <div id="name"></div>
+    <div id="text"></div>
+    <div id="choices"></div>
+  </div>
+</div>
+
+<!-- ===== main.js（同階層） ===== -->
+<script src="main.js"></script>
+
+</body>
+</html>
