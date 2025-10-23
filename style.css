@@ -1,0 +1,340 @@
+/* ===== 全体設定 ===== */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: "Hiragino Maru Gothic ProN", "Noto Sans JP", sans-serif;
+  color: white;
+  background-color: black;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ===== タイトル画面 ===== */
+#titleScreen {
+  position: absolute;
+  inset: 0;
+  background: url("img/classroom.png") center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 1000;        /* ← 最前面に */
+  pointer-events: auto; /* ← クリック可能に */
+}
+
+.hidden {
+  display: none !important; /* ← 完全に非表示 */
+}
+
+
+#titleScreen h1 {
+  font-size: 3em;
+  color: white;
+  text-shadow: 0 0 20px #ffb6c1;
+  margin-bottom: 40px;
+}
+
+#startButton, #continueButton {
+  background: #ff69b4;
+  border: none;
+  color: white;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 10px;
+}
+
+#startButton:hover, #continueButton:hover {
+  background: #ff85c1;
+  box-shadow: 0 0 15px rgba(255,182,193,0.7);
+  transform: scale(1.05);
+}
+
+/* ===== 名前入力画面 ===== */
+#nameScreen {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 90;
+}
+
+#nameContainer h2 {
+  color: white;
+  text-shadow: 0 0 10px #ffb6c1;
+}
+
+#playerNameInput {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 2px solid #ffb6c1;
+  font-size: 1em;
+  margin: 15px 0;
+}
+
+#nameConfirmButton {
+  background: #ff69b4;
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#nameConfirmButton:hover {
+  background: #ff85c1;
+}
+
+/* ===== ゲーム画面 ===== */
+#game {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: url("img/classroom.png") center/cover no-repeat;
+  z-index: 1;
+}
+
+#char {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 90%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+#textBox {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 1.1em;
+
+  /* ▼ 追加部分 ▼ */
+  height: 160px;        /* 固定高さを設定 */
+  overflow: hidden;     /* テキストが長くてもはみ出さない */
+}
+
+/* ===== モノローグ（簡素・余白を活かす） ===== */
+.mono {
+  background: rgba(0, 0, 0, 0.25);
+  font-style: italic;
+  color: #f8f8f8;
+  border-radius: 6px;
+  padding: 6px 10px;
+  opacity: 0.9;
+  transition: opacity 0.4s ease;
+}
+
+
+
+#name {
+  font-weight: bold;
+  color: #ffb6c1;
+  text-shadow: 0 0 10px #ff85c1;
+  margin-bottom: 5px;
+}
+
+/* ===== 選択肢全体コンテナ（セリフ欄の上に20px余白） ===== */
+#choices {
+  position: fixed;
+  left: 50%;
+  bottom: 180px;  /* ← セリフ欄の上に来るよう調整 */
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 80%;
+  z-index: 9999;  /* ← 最前面に出す */
+}
+
+/* ===== 選択肢ボタン ===== */
+.choice {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 182, 193, 0.5);
+  color: #fff;
+  padding: 12px 40px;
+  border-radius: 14px;
+  font-size: 1.05em;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.2s;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+
+  /* ▼ 追加部分 ▼ */
+  width: 60%;              /* 横幅を統一（%でもpxでもOK） */
+  max-width: 500px;        /* 画面が広い時の上限 */
+  min-width: 260px;        /* 狭い画面での下限 */
+}
+
+.choice:hover {
+  background: rgba(255, 182, 193, 0.35);
+  transform: scale(1.05);
+}
+
+#textBox, #choices { z-index: 20; }
+#game.dim { filter: brightness(0.6) contrast(1.05); z-index: 5; }
+
+
+/* ===== メニュー関連 ===== */
+#menuButton {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255,182,193,0.4);
+  border: 1px solid #ffb6c1;
+  border-radius: 8px;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  z-index: 200;
+  transition: 0.2s;
+}
+#menuButton:hover {
+  background: rgba(255,182,193,0.7);
+}
+
+#menuOverlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 300;
+}
+
+#menuBox {
+  background: rgba(20, 20, 30, 0.95);
+  border: 2px solid #ffb6c1;
+  border-radius: 20px;
+  padding: 40px 60px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255,182,193,0.5);
+}
+
+#menuBox h2 {
+  color: #ffb6c1;
+  margin-bottom: 25px;
+  text-shadow: 0 0 8px #ff85c1;
+}
+
+#menuBox button {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid #ffb6c1;
+  color: white;
+  border-radius: 12px;
+  padding: 10px 40px;
+  margin: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#menuBox button:hover {
+  background: rgba(255,182,193,0.3);
+  transform: scale(1.05);
+}
+
+/* ===== スロット選択UI ===== */
+#slotOverlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 500;
+}
+
+#slotOverlay h2 {
+  font-size: 2em;
+  color: #ffb6c1;
+  margin-bottom: 30px;
+  text-shadow: 0 0 8px #ff85c1;
+}
+
+.slotCard {
+  position: relative;
+  border: 2px solid #ffb6c1;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  padding: 15px 25px;
+  margin: 10px;
+  width: 360px;
+  color: white;
+  text-align: left;
+  transition: 0.3s;
+}
+.slotCard:hover {
+  background: rgba(255,182,193,0.15);
+  transform: scale(1.02);
+}
+
+/* ===== 削除ボタン（スマホ対応・少し大きめ） ===== */
+.slotDelete {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: rgba(255,182,193,0.25);
+  color: white;
+  border: 1px solid #ffb6c1;
+  border-radius: 6px;
+  font-size: 11px;             /* 文字は控えめ */
+  padding: 4px 10px;           /* タップ領域を拡大 */
+  height: 24px;                /* タップに十分な高さ */
+  line-height: 16px;           /* テキスト中央寄せ */
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;  /* モバイルで反応改善 */
+}
+.slotDelete:hover,
+.slotDelete:active {
+  background: rgba(255,182,193,0.6);
+  transform: scale(1.05);
+}
+
+
+/* ===== 通知バナー ===== */
+#notifyBox {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.notifyMsg {
+  background: rgba(255, 182, 193, 0.95);
+  color: #222;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  box-shadow: 0 0 10px rgba(255, 182, 193, 0.6);
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+.notifyMsg.fadeout {
+  opacity: 0;
+}
